@@ -795,7 +795,7 @@ bool Item_func_des_encrypt::fix_length_and_dec(THD *thd)
 String *Item_func_des_encrypt::val_str(String *str)
 {
   DBUG_ASSERT(fixed());
-#if defined(HAVE_OPENSSL) && !defined(EMBEDDED_LIBRARY)
+#if defined(HAVE_des) && !defined(EMBEDDED_LIBRARY)
   uint code= ER_WRONG_PARAMETERS_TO_PROCEDURE;
   DES_cblock ivec;
   struct st_des_keyblock keyblock;
@@ -885,7 +885,7 @@ error:
   push_warning_printf(thd, Sql_condition::WARN_LEVEL_WARN,
                       ER_FEATURE_DISABLED, ER_THD(thd, ER_FEATURE_DISABLED),
                       "des_encrypt", "--with-ssl");
-#endif /* defined(HAVE_OPENSSL) && !defined(EMBEDDED_LIBRARY) */
+#endif /* defined(HAVE_des) && !defined(EMBEDDED_LIBRARY) */
   null_value=1;
   return 0;
 }
@@ -908,7 +908,7 @@ bool Item_func_des_decrypt::fix_length_and_dec(THD *thd)
 String *Item_func_des_decrypt::val_str(String *str)
 {
   DBUG_ASSERT(fixed());
-#if defined(HAVE_OPENSSL) && !defined(EMBEDDED_LIBRARY)
+#if defined(HAVE_des) && !defined(EMBEDDED_LIBRARY)
   uint code= ER_WRONG_PARAMETERS_TO_PROCEDURE;
   DES_cblock ivec;
   struct st_des_keyblock keyblock;
@@ -985,7 +985,7 @@ wrong_key:
                         ER_FEATURE_DISABLED, ER_THD(thd, ER_FEATURE_DISABLED),
                         "des_decrypt", "--with-ssl");
   }
-#endif /* defined(HAVE_OPENSSL) && !defined(EMBEDDED_LIBRARY) */
+#endif /* defined(HAVE_des) && !defined(EMBEDDED_LIBRARY) */
   null_value=1;
   return 0;
 }
